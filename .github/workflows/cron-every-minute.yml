@@ -1,0 +1,16 @@
+name: Run Backend Job Every Minute
+
+on:
+  schedule:
+    - cron: '* * * * *'  # Runs every minute (UTC)
+  workflow_dispatch:      # Optional: allows manual triggering
+
+jobs:
+  run-backend-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Railway backend endpoint
+        run: |
+          echo "📞 Calling backend endpoint..."
+          curl -s -w "\nHTTP Status: %{http_code}\n" https://cron-job-setup-production.up.railway.app/cron-job
